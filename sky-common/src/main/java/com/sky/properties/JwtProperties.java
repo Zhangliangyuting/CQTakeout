@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "sky.jwt")
-@Data
+@Data//类加上 Lombok 的 @Data 注解后，编译时会自动为所有非 static、非 final 的字段生成getter,getter,toString 方法和全参构造器
 public class JwtProperties {
 
     /**
