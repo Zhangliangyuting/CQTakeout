@@ -15,17 +15,15 @@ public interface CategoryMapper {
 
     @Insert("insert into category (type,name,sort,status,create_time,update_time,create_user,update_user)" +
             "values" +
-            "(#{type},#{name},#{sort},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})"
-    )
-    void insert(Category category) ;
-
+            "(#{type},#{name},#{sort},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})")
+    void insert(Category category);
 
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
-
-    void update(Category category);
 
     @Delete("delete from category where id=#{id}")
     void deleteById(Long id);
 
-    List<Category> list(Integer type);
+    void update(Category category);
+
+    List<Category> list(int type);
 }
