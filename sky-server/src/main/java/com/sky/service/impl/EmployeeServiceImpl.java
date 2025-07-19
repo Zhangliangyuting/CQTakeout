@@ -16,6 +16,7 @@ import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import org.springframework.util.DigestUtils;
 import java.time.LocalDateTime;
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
@@ -51,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //密码比对
         //进行md5摘要算法加密，然后再进行比对
         password = DigestUtils.md5DigestAsHex(password.getBytes());
+        log.info("加密密码: "+password);
         if (!password.equals(employee.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
@@ -73,13 +76,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setStatus(StatusConstant.ENABLE);
 
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        /*employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());*/
 
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        /*employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());*/
 
         employeeMapper.insert(employee);
 
@@ -113,8 +116,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
-        employee.setUpdateUser(BaseContext.getCurrentId());
-        employee.setUpdateTime(LocalDateTime.now());
+        /*employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());*/
 
         employeeMapper.update(employee);
     }
