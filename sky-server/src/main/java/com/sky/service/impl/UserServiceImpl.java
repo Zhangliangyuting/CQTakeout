@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         Map<String,String> map = new HashMap<>();
         map.put("appid", weChatProperties.getAppid());
         map.put("secret", weChatProperties.getSecret());
-        map.put("js_code",userLoginDTO .getCode());
+        map.put("js_code",userLoginDTO.getCode());
         map.put(" grant_type","authorization_code");
         String json = HttpClientUtil.doGet(WX_LOGIN,map);
         JSONObject jsonObject = JSONObject.parseObject(json);
