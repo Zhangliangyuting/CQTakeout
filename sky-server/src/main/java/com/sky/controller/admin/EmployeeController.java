@@ -5,6 +5,7 @@ import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
+import com.sky.entity.Orders;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -12,7 +13,6 @@ import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,9 +86,9 @@ public class EmployeeController {
 
     @GetMapping("/page")
     @ApiOperation("分页查询")
-    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+    public Result<PageResult<Orders>> page(EmployeePageQueryDTO employeePageQueryDTO){
         log.info("员工分页查询，参数:{}",employeePageQueryDTO);
-        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
+        PageResult<Orders> pageResult = employeeService.pageQuery(employeePageQueryDTO);
         log.info("分页结果:{}",pageResult);
         return Result.success(pageResult);
     }

@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.entity.Orders;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
@@ -31,8 +32,8 @@ public class CategoryController {
 
     @GetMapping("/page")
     @ApiOperation("分类分页查询")
-    public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO){
-        PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+    public Result<PageResult<Orders>> page(CategoryPageQueryDTO categoryPageQueryDTO){
+        PageResult<Orders> pageResult = categoryService.pageQuery(categoryPageQueryDTO);
         return Result.success(pageResult);
     }
 

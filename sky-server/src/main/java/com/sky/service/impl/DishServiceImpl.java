@@ -8,6 +8,7 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.entity.Orders;
 import com.sky.entity.Setmeal;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
@@ -56,12 +57,12 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+    public PageResult<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         PageHelper.startPage(dishPageQueryDTO.getPage(),dishPageQueryDTO.getPageSize());
 
         Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);
 
-        PageResult pageResult = new PageResult(page.getTotal(),page.getResult());
+        PageResult<DishVO> pageResult = new PageResult(page.getTotal(),page.getResult());
         return pageResult;
     }
 
@@ -70,7 +71,7 @@ public class DishServiceImpl implements DishService {
     public void deleteBatch(List<Long> idList) {
         for(Long id:idList){
             Dish dish = dishMapper.getById(id);
-            if(dish.getStatus()== StatusConstant.ENABLE){
+            if(dish.getStatus() == StatusConstant.ENABLE){
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
